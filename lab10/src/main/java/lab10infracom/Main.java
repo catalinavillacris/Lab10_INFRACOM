@@ -18,7 +18,70 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         
-        
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Seleccione una opción de cifrado:");
+            System.out.println("1. Cifrado Simétrico (AES)");
+            System.out.println("2. Cifrado Asimétrico (RSA)");
+            System.out.println("3. Salir");
+            System.out.print("Ingrese su opción: ");
+            int option = scanner.nextInt();
+            scanner.nextLine(); // Consumir la línea pendiente
+
+            switch (option) {
+                case 1:
+                    System.out.println("seleccione una opcion del menu de mains");
+                    System.out.print("1.");
+                    System.out.print("2.");
+                    System.out.print("3.");
+                    System.out.print("4.");
+                    int main = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (main) {
+                        case 1:
+                            Main.mainSimetrico();
+                            break;
+                        case 2:
+                            Main2.mainSimetrico();
+                        case 3:
+                            Main3.main3Simetrico();
+                        case 4:
+                            Main4.main4Simetrico();
+                        default:
+                            System.out.println("Opción no válida. Intente de nuevo.");;    
+                    }
+                    break;
+                case 2:
+                    System.out.println("seleccione una opcion del menu de mains");
+                    System.out.print("1.");
+                    System.out.print("2.");
+                    System.out.print("3.");
+                    System.out.print("4.");
+                    int mainAsimetrico = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (mainAsimetrico) {
+                        case 1:
+                            Main.mainAsimetrico();
+                            break;
+                        case 2:
+                            Main2.mainAsimetrico();
+                        case 3:
+                            Main3.main3Asimetrico();
+                        case 4:
+                            Main4.main4Asimetrico();
+                        default:
+                            System.out.println("Opción no válida. Intente de nuevo.");;    
+                    }
+                    break;
+                case 3:
+                    System.out.println("Saliendo...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        }
     }
 
     public static void imprimir(byte[] contenido) {
