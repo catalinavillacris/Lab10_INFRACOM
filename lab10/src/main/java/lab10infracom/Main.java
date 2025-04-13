@@ -24,7 +24,8 @@ public class Main {
             System.out.println("Seleccione una opción de cifrado:");
             System.out.println("1. Cifrado Simétrico (AES)");
             System.out.println("2. Cifrado Asimétrico (RSA)");
-            System.out.println("3. Salir");
+            System.out.println("3.Control de Integridad");
+            System.out.println("4. Salir");
             System.out.print("Ingrese su opción: ");
             int option = scanner.nextInt();
             scanner.nextLine(); // Consumir la línea pendiente
@@ -49,7 +50,7 @@ public class Main {
                         case 4:
                             Main4.main4Simetrico();
                         default:
-                            System.out.println("Opción no válida. Intente de nuevo.");;    
+                            System.out.println("Opción no válida. Intente de nuevo.");
                     }
                     break;
                 case 2:
@@ -71,10 +72,46 @@ public class Main {
                         case 4:
                             Main4.main4Asimetrico();
                         default:
-                            System.out.println("Opción no válida. Intente de nuevo.");;    
+                            System.out.println("Opción no válida. Intente de nuevo.");   
                     }
                     break;
                 case 3:
+                    System.out.println("seleccione una opcion: ");
+                    System.out.print("1. Inresar texto");
+                    System.out.print("2. Ingresar archivo");
+                    int integridad = scanner.nextInt();
+                    scanner.nextLine();
+                    switch (integridad) {
+                        case 1:
+                            System.out.println("Ingrese el texto: "); 
+                            String texto=scanner.nextLine();
+                            System.out.println("El texto ingresado es:  "+ texto);
+        
+                            byte[] textoClaro= texto.getBytes();
+                            byte[] textoMD5= Digest.getDigest("MD5", textoClaro);
+                            Digest.imprimirHexa(textoMD5);
+                            byte[] textoSHA= Digest.getDigest("SHA-1", textoClaro);
+                            Digest.imprimirHexa(textoSHA);
+                        case 2:
+                            System.out.println("Ingrese el nombre del archivo: ");
+                            String archivo=scanner.nextLine();
+                            try {
+                                byte[] digestMD5=  Main2Digest.getDigestFile("MD5", archivo);
+                                Digest.imprimirHexa(digestMD5);
+
+                                byte[] digestSHA=  Main2Digest.getDigestFile("SHA-1", archivo);
+                                Digest.imprimirHexa(digestSHA);
+                                
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+    
+                    }
+                    break;
+
+
+
+                case 4:
                     System.out.println("Saliendo...");
                     scanner.close();
                     return;
@@ -90,6 +127,20 @@ public class Main {
             System.out.print(contenido[i] + " ");
         }
         System.out.println(contenido[i] + " ");
+    }
+
+    public static boolean verificar(byte[] array1, byte[] array2) {
+        if (array1.length != array2.length) {
+            return false;
+        }
+
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != array2[i]) {
+                return false;
+            }
+        }
+
+        return true; // Si no se encuentra ninguna diferencia, son idénticos
     }
 
     public static void mainSimetrico() throws NoSuchAlgorithmException{
