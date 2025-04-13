@@ -15,10 +15,7 @@ import javax.crypto.SecretKey;
 
 public class Main3 {
     private final static String ALGORITMO = "AES";
-    public static void main(String[] args) throws Exception {
-        
-    }
-
+    
     public static void imprimir(byte[] contenido) {
         int i = 0;
         for (; i < contenido.length - 1; i++) {

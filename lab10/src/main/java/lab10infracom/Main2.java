@@ -16,10 +16,6 @@ public class Main2 {
     private final static String ALGORITMOA= "RSA";
     
 
-    public static void main(String[] args) throws Exception {
-        
-    }
-
     public static void imprimir(byte[] contenido) {
         int i = 0;
         for (; i < contenido.length - 1; i++) {
