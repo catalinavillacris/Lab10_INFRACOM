@@ -7,11 +7,12 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Scanner;
 
 public class Main {
 
-    private final static String ALGORITMOA= "RSA";
+    public final static String ALGORITMOA= "RSA";
     private final static String ALGORITMO = "AES";
     
 
@@ -84,16 +85,14 @@ public class Main {
         generator.initialize(1024);
         KeyPair keyPair = generator.generateKeyPair();
         PrivateKey llavePrivada = keyPair.getPrivate();
+        PublicKey llavePublica = keyPair.getPublic();
 
-        byte[] textoCifrado = Asimetrico.cifrar(llavePrivada, ALGORITMOA, texto);
+        byte[] textoCifrado = Asimetrico.cifrar(llavePublica, ALGORITMOA, texto);
         System.out.print("Input cifrado en RSA con llave pública (en bytes): ");
         imprimir(textoCifrado);
 
-        byte[] textoDescifrado = Asimetrico.descifrar(llavePrivada, ALGORITMOA, textoCifrado);
-        System.out.print("Texto descifrado en bytes: ");
+        byte[] textoDescifrado= Asimetrico.descifrar(llavePrivada, texto, textoCifrado);
         imprimir(textoDescifrado);
-        String textoFinal = new String(textoDescifrado);
-        System.out.println("Texto descifrado final: " + textoFinal);
-
+        System.out.println("Texto descifrado: " + new String(textoDescifrado));
     }
 }

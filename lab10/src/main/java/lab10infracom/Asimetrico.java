@@ -1,6 +1,9 @@
 package lab10infracom;
 
 import java.security.Key;
+import java.security.KeyPair;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 import javax.crypto.Cipher;
 

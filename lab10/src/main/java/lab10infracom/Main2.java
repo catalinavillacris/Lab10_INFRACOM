@@ -4,6 +4,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Scanner;
 
 import javax.crypto.KeyGenerator;
@@ -76,30 +77,30 @@ public class Main2 {
     }
 
     public static void mainAsimetrico() throws NoSuchAlgorithmException {
+
         Scanner scanner = new Scanner(System.in);
         System.out.print("Escriba un mensaje de texto: ");
         String texto = scanner.nextLine();
-        System.out.println("Texto plano: " + texto);
+        System.out.println("Input en texto plano: " + texto);
 
+        
         byte[] textoClaro = texto.getBytes();
-        System.out.print("Texto en bytes: ");
+        System.out.print("Input en bytes: ");
         imprimir(textoClaro);
 
-        KeyPairGenerator generador = KeyPairGenerator.getInstance(ALGORITMOA);
-        generador.initialize(1024);
-        KeyPair keyPair = generador.generateKeyPair();
+        KeyPairGenerator generator = KeyPairGenerator.getInstance(ALGORITMOA);
+        generator.initialize(1024);
+        KeyPair keyPair = generator.generateKeyPair();
         PrivateKey llavePrivada = keyPair.getPrivate();
+        PublicKey llavePublica = keyPair.getPublic();
 
         byte[] textoCifrado = Asimetrico.cifrar(llavePrivada, ALGORITMOA, texto);
-        System.out.print("Texto cifrado en bytes: ");
+        System.out.print("Input cifrado en RSA con llave pública (en bytes): ");
         imprimir(textoCifrado);
 
-        byte[] textoDescifrado = Asimetrico.descifrar(llavePrivada, ALGORITMOA, textoCifrado);
-        System.out.print("Texto descifrado en bytes: ");
+        byte[] textoDescifrado= Asimetrico.descifrar(llavePublica, texto, textoCifrado);
         imprimir(textoDescifrado);
-
-        String textoFinal = new String(textoDescifrado);
-        System.out.println("Texto descifrado final: " + textoFinal);
+        System.out.println("Texto descifrado: " + new String(textoDescifrado));
 
 
         
